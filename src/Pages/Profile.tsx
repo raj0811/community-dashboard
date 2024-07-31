@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../Components/Layout/Sidebar";
 import Feed from "../Components/Content/Feed";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "../Components/Layout/Navbar";
 import { IoChevronBack } from "react-icons/io5";
 import { formatDistance } from "date-fns";
@@ -17,12 +17,17 @@ import {
 import { LuBookmark } from "react-icons/lu";
 import Comments from "../Components/FeedComponents/Comments";
 import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const state = location.state as any; // This will bypass TypeScript checking
   const { info, user } = state || {};
+  if (!info) {
+    navigate('/');
+    return null
+  }
   const [pdfLoaded, setPdfLoaded] = useState(false);
   const timeAgo = (date: Date) => {
     const now = new Date();
@@ -87,7 +92,9 @@ const Profile = () => {
             <a href={notes} target="_blank">
               <div
                 className="w-[202px]"
-                style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
+                style={{
+                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                }}
               >
                 {pdfLoaded ? (
                   <div className="w-[201px] h-[127px] overflow-hidden">
@@ -133,8 +140,8 @@ const Profile = () => {
             <div className="flex justify-between">
               <span className="text-left text-[20px] font-[500]">Comments</span>
               <span className="flex items-center">
-              <HiChatBubbleBottomCenterText className="h-[16.67px] w-[16.67px] text-[#424242]"/>
-              <span className="ml-2 text-[12px]">Comments</span>
+                <HiChatBubbleBottomCenterText className="h-[16.67px] w-[16.67px] text-[#424242]" />
+                <span className="ml-2 text-[12px]">Comments</span>
               </span>
             </div>
             <div className="mt-[40px]">
