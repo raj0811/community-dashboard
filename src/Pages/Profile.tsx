@@ -25,10 +25,10 @@ const Profile = () => {
   const state = location.state as any; // This will bypass TypeScript checking
   const { info, user } = state || {};
   if (!info) {
-    navigate('/');
-    return null
+    window.location.href = "/";
+    return null;
   }
-  const [pdfLoaded, setPdfLoaded] = useState(false);
+
   const timeAgo = (date: Date) => {
     const now = new Date();
     let timeString = formatDistance(new Date(date), now, { addSuffix: true });
@@ -40,14 +40,6 @@ const Profile = () => {
 
     return timeString;
   };
-
-  useEffect(() => {
-    // Simulate PDF loading
-    const loadPdf = async () => {
-      setPdfLoaded(true); // Set to true when PDF is loaded
-    };
-    loadPdf();
-  }, []);
 
   const paragraphs = info.description
     .split("\n")
@@ -96,13 +88,10 @@ const Profile = () => {
                   boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
                 }}
               >
-                {pdfLoaded ? (
-                  <div className="w-[201px] h-[127px] overflow-hidden">
-                    <iframe src={notes} />
-                  </div>
-                ) : (
-                  <div>Loading PDF...</div>
-                )}
+                <div className="w-[201px] h-[127px] overflow-hidden">
+                  <iframe src={notes} />
+                </div>
+
                 <div className="w-full flex items-center h-[37px]">
                   <img
                     src={pdfLogo}
