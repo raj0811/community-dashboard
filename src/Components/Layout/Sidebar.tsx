@@ -20,7 +20,7 @@ const Sidebar = ({ name }: any) => {
           src={profile}
           alt="profile"
           className="h-[33.14px] w-[33.14px] mt-[10.1px]"
-        /> ,,,
+        /> 
         {/*  icons */}
         <div className="mt-[10vh] w-full flex flex-col items-center">
           <img src={faq} alt="faq" className="p-[8px]" />
